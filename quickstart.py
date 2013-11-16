@@ -94,5 +94,9 @@ body = {
 
 file = drive_service.files().insert(body=body, media_body=media_body).execute()
 
-pprint.pprint(retrieve_all_files(drive_service))
+
+for item in retrieve_all_files(drive_service):
+  print item['originalFilename']
+
+#print download_file(drive_service,"")
 #pprint.pprint(file)
