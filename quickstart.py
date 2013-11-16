@@ -7,6 +7,56 @@ from apiclient.discovery import build
 from apiclient.http import MediaFileUpload
 from oauth2client.client import OAuth2WebServerFlow
 
+def download_file(service, drive_file):
+  """Download a file's content.
+
+  Args:
+    service: Drive API service instance.
+    drive_file: Drive File instance.
+
+  Returns:
+    File's content if successful, None otherwise.
+  """
+  download_url = drive_file.get('downloadUrl')
+  if download_url:
+    resp, content = service._http.request(download_url)
+    if resp.status == 200:
+      print 'Status: %s' % resp
+      return content
+    else:
+      print 'An error occurred: %s' % resp
+      return None
+  else:
+    # The file doesn't have any content stored on Drive.
+    return None
+
+def retrieve_all_files(service):
+  """Retrieve a list of File resources.
+
+  Args:
+    service: Drive API service instance.
+  Returns:
+    List of File resources.
+  """
+  result = []
+  page_token = None
+  while True:
+    try:
+      param = {}
+      if page_token:
+        param['pageToken'] = page_token
+      files = service.files().list(**param).execute()
+
+      result.extend(files['items'])
+      page_token = files.get('nextPageToken')
+      if not page_token:
+        break
+    except errors.HttpError, error:
+      print 'An error occurred: %s' % error
+      break
+  return result
+
+## START SETUP
 
 # Copy your credentials from the console
 CLIENT_ID = '525402384233-lg16n5981raug5jc2ou8rghs2je0s16d.apps.googleusercontent.com'
@@ -43,4 +93,6 @@ body = {
 }
 
 file = drive_service.files().insert(body=body, media_body=media_body).execute()
+
+pprint.pprint(retrieve_all_files(drive_service))
 #pprint.pprint(file)
