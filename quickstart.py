@@ -6,6 +6,7 @@ import pprint
 from apiclient.discovery import build
 from apiclient.http import MediaFileUpload
 from oauth2client.client import OAuth2WebServerFlow
+from apiclient import errors
 
 def download_file(service, drive_file):
   """Download a file's content.
@@ -30,7 +31,7 @@ def download_file(service, drive_file):
     # The file doesn't have any content stored on Drive.
     return None
 
-def retrieve_all_files(service):
+def retrieve_all_files(service, search_str):
   """Retrieve a list of File resources.
 
   Args:
@@ -45,6 +46,8 @@ def retrieve_all_files(service):
       param = {}
       if page_token:
         param['pageToken'] = page_token
+      #if search_str:
+        #param['q'] = search_str
       files = service.files().list(**param).execute()
 
       result.extend(files['items'])
@@ -92,11 +95,14 @@ body = {
   'mimeType': 'text/plain'
 }
 
-file = drive_service.files().insert(body=body, media_body=media_body).execute()
+file = drive_service.files().get(fileId='0Bz77o2zmADrCeVV6b2ZFT3hSSFE').execute()
 
+#file = drive_service.files().insert(body=body, media_body=media_body).execute()
 
-for item in retrieve_all_files(drive_service):
-  print item['originalFilename']
+for item in retrieve_all_files(drive_service,'Chapter'):
+  pprint.pprint(item)
 
 #print download_file(drive_service,"")
 #pprint.pprint(file)
+
+pprint.pprint(download_file(drive_service,file))
