@@ -74,6 +74,9 @@ REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 # Path to the file to upload
 FILENAME = 'document.txt'
 
+# Path to the file that's downloaded
+DOWNLOADFILE = 'downloadfile.txt'
+
 # Run through the OAuth flow and retrieve credentials
 flow = OAuth2WebServerFlow(CLIENT_ID, CLIENT_SECRET, OAUTH_SCOPE, REDIRECT_URI)
 authorize_url = flow.step1_get_authorize_url()
@@ -105,4 +108,5 @@ file = drive_service.files().get(fileId='0B2rUt6t49XG_SmRUbzQ2MWtzckE').execute(
 #print download_file(drive_service,"")
 #pprint.pprint(file)
 
-#download_file(drive_service,file)
+#prints things
+download_file(drive_service,file)
