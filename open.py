@@ -84,14 +84,8 @@ http = credentials.authorize(http)
 
 drive_service = build('drive', 'v2', http=http)
 
-# Insert a file
-media_body = MediaFileUpload(FILENAME, mimetype='text/plain', resumable=True)
-body = {
-  'title': 'My document',
-  'description': 'A test document',
-  'mimeType': 'text/plain'
-}
+#########
 
 file = drive_service.files().get(fileId='0B2rUt6t49XG_SmRUbzQ2MWtzckE').execute()
 
-pprint.pprint(download_file(drive_service,file))
+downloadinfo = download_file(drive_service,file)

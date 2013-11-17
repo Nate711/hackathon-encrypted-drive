@@ -1,17 +1,19 @@
-# Open a file
+file = open('document.txt', 'r')
+#file = open('testdoc.txt', 'w+')
+print "Name of the file: " + file.name
 
-file = open('document.txt', 'r+')
-print "Name of the file: ", file.name
+# Reading file
+print(file.read() + " \n")
+file.close()
 
-str = file.read()
-print(str + " \n")
-
+# Taking input and writing it to file
+file = open('document.txt', 'w+')
 input = raw_input("Enter input here: ")
-print("writing \" " + input  + " \"")
+print("writing \'" + input  + "\'")
 file.write(input)
 
-str = file.read()
-print(str)
+# Reading file again
+print(file.read())
 
 # Close opend file
 file.close()
