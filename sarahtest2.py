@@ -95,8 +95,7 @@ body = {
   'mimeType': 'text/plain'
 }
 
-#file = drive_service.files().get(fileId='0B2rUt6t49XG_SmRUbzQ2MWtzckE').execute()
-# ^that thing
+file = drive_service.files().get(fileId='0B2rUt6t49XG_SmRUbzQ2MWtzckE').execute()
 
 #file = drive_service.files().insert(body=body, media_body=media_body).execute()
 
@@ -104,7 +103,6 @@ body = {
   #pprint.pprint(item)
 
 #print download_file(drive_service,"")
-drive_service.files().list(q="title contains 'testttt'").execute()
 #pprint.pprint(file)
 
-pprint.pprint(download_file(drive_service,file))
+#download_file(drive_service,file)
