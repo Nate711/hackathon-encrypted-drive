@@ -86,6 +86,16 @@ drive_service = build('drive', 'v2', http=http)
 
 #########
 
-file = drive_service.files().get(fileId='0B2rUt6t49XG_SmRUbzQ2MWtzckE').execute()
+file = drive_service.files().get(fileId='0BziiE4abYZODcHFwd0RvZ1pFMUk').execute()
 
 downloadinfo = download_file(drive_service,file)
+downloadedfile = open("downloaded.png", "wb+")
+
+# Just looking at what is in downloadinfo
+print("downloadinfo: " + downloadinfo)
+
+#dldinfostr = str(downloadinfo)
+#print("dldinfostr: " + dldinfostr)
+
+downloadedfile.write(downloadinfo)
+print("\n" + downloadedfile.read())
