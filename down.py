@@ -104,4 +104,4 @@ downloadedfile.write(downloadinfo)
 print("\n" + downloadedfile.read())
 
 print("downloadinfo TITLE")
-print(downloadinfo.title)
+print(downloadinfo.title())
