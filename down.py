@@ -88,8 +88,11 @@ drive_service = build('drive', 'v2', http=http)
 
 file = drive_service.files().get(fileId='0BziiE4abYZODcHFwd0RvZ1pFMUk').execute()
 
+# Asking what to call the downloaded file
+input = raw_input("Downloaded file name \n> ")
+
 downloadinfo = download_file(drive_service,file)
-downloadedfile = open("downloaded.png", "wb+")
+downloadedfile = open(input, "wb+")
 
 # Just looking at what is in downloadinfo
 print("downloadinfo: " + downloadinfo)
